@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<StockReaderInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<ConfigData>
+<Timer interval="5"/>
+</ConfigData>
+<TickerList>
+	<Ticker>ANAD</Ticker>
+	<Ticker>T</Ticker>
+	<Ticker>VZ</Ticker>
+	<Ticker>PLUG</Ticker>
+	<Ticker>DTE</Ticker>
+</TickerList>
+<ColumnList>
+	<ColumnDef>
+		<ColName>Ticker</ColName>
+		<BindingColumn>TickerSymbol</BindingColumn>
+		<ColHeading>Ticker</ColHeading>
+		<ColFormat/>
+	</ColumnDef>
+	<ColumnDef>
+		<ColName>ClosePrice</ColName>
+		<BindingColumn>Price</BindingColumn>
+		<ColHeading>Price</COlHeading>
+		<ColFormat>C2</ColFormat>
+	</ColumnDef>
+	<ColumnDef>
+		<ColName>Change</ColName>
+		<BindingColumn>Change</BindingColumn>
+		<ColHeading>Change</COlHeading>
+		<ColFormat>C2</ColFormat>
+	</ColumnDef>
+	<ColumnDef>
+		<ColName>PctChange</ColName>
+		<BindingColumn>PercentChange</BindingColumn>
+		<ColHeading>% Change</COlHeading>
+		<ColFormat/>
+	</ColumnDef>
+	<ColumnDef>
+		<ColName>Open</ColName>
+		<BindingColumn>Open</BindingColumn>
+		<ColHeading>Open</COlHeading>
+		<ColFormat>C2</ColFormat>
+	</ColumnDef>
+	<ColumnDef>
+		<ColName>High</ColName>
+		<BindingColumn>High</BindingColumn>
+		<ColHeading>High</COlHeading>
+		<ColFormat>C2</ColFormat>
+	</ColumnDef>
+	<ColumnDef>
+		<ColName>Low</ColName>
+		<BindingColumn>Low</BindingColumn>
+		<ColHeading>Low</COlHeading>
+		<ColFormat>C2</ColFormat>
+	</ColumnDef>
+	<ColumnDef>
+		<ColName>Volume</ColName>
+		<BindingColumn>Volume</BindingColumn>
+		<ColHeading>Volume</COlHeading>
+		<ColFormat>N2</ColFormat>
+	</ColumnDef>
+</ColumnList>
+</StockReaderInfo>
