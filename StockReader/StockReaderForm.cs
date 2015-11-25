@@ -182,9 +182,9 @@ namespace DavinSys.StockReader.UI
 			StringBuilder sb = new StringBuilder();
 			string result = "";
 
-			foreach (string ticker in config.TickerList)
+			foreach (TickerType ticker in config.TickerList)
 			{
-				sb.Append(ticker + ",");
+				sb.Append(ticker.TickerText + ",");
 			}
 
 			if (sb.Length > 0)
@@ -350,10 +350,10 @@ namespace DavinSys.StockReader.UI
         {
             TickerListForm form = new TickerListForm();
 
-			form.TickerList = new List<string>(config.TickerList);
+			form.TickerList = new List<TickerType>(config.TickerList);
 			if (form.ShowDialog() == DialogResult.OK)
 			{
-				config.TickerList = form.TickerList.ToArray();
+                config.TickerList = form.TickerList.ToArray();
 
 				ProcessTickers();
 			}
@@ -373,12 +373,22 @@ namespace DavinSys.StockReader.UI
 
 			data = (TickerData) stockDataGridView.Rows[e.RowIndex].DataBoundItem;
 			TickerDetailForm form = new TickerDetailForm();
+            form.TickerTrans = GetTickerTrans(symbol);
 
 			form.InitializeFieldData(data);
 			form.ShowDialog();
 		}
 
-		private void stockDataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private TickerType GetTickerTrans(string ticker)
+        {
+            for (int i = 0; i < config.TickerList.Length; i++)
+                if (config.TickerList[i].TickerText == ticker)
+                    return config.TickerList[i];
+
+            return null;
+        }
+
+        private void stockDataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
 			
 			sortColumn = stockDataGridView.Columns[e.ColumnIndex];

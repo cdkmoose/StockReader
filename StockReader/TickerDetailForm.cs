@@ -13,10 +13,29 @@ namespace DavinSys.StockReader.UI
 {
 	public partial class TickerDetailForm : Form
 	{
+        private TickerType tickerTrans = null;
+
 		public TickerDetailForm()
 		{
 			InitializeComponent();
+            transactionGrid.AutoGenerateColumns = false;
 		}
+
+        public TickerType TickerTrans
+        {
+            get
+            {
+                return tickerTrans;
+            }
+
+            set
+            {
+                tickerTrans = value;
+                if (tickerTrans != null)
+                    transactionGrid.DataSource = tickerTrans.TransactionList;
+
+            }
+        }
 
 		public void InitializeFieldData(TickerData data)
 		{

@@ -42,15 +42,15 @@ namespace DavinSys.StockReader.UI
             }
         }
 
-		public List<string> TickerList
+		public List<TickerType> TickerList
 		{
 			get
 			{
-				List<string> list = new List<string>();
+                List<TickerType> list = new List<TickerType>();
 
 				foreach (object item in lbTickers.Items)
 				{
-					list.Add(item.ToString());
+					list.Add((TickerType)item);
 				}
 
 				return list;

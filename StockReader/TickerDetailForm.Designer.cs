@@ -28,6 +28,10 @@ namespace DavinSys.StockReader.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabTickerDetail = new System.Windows.Forms.TabControl();
             this.tabPricing = new System.Windows.Forms.TabPage();
             this.pnlPricing = new System.Windows.Forms.Panel();
@@ -63,6 +67,14 @@ namespace DavinSys.StockReader.UI
             this.pnlTrends = new System.Windows.Forms.Panel();
             this.tabHistory = new System.Windows.Forms.TabPage();
             this.pnlHistory = new System.Windows.Forms.Panel();
+            this.tabTransactions = new System.Windows.Forms.TabPage();
+            this.pnlTransactions = new System.Windows.Forms.Panel();
+            this.transactionGrid = new System.Windows.Forms.DataGridView();
+            this.transDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.transType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.shares = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabTickerDetail.SuspendLayout();
             this.tabPricing.SuspendLayout();
             this.pnlPricing.SuspendLayout();
@@ -72,6 +84,9 @@ namespace DavinSys.StockReader.UI
             this.pnlEarnings.SuspendLayout();
             this.tabTrends.SuspendLayout();
             this.tabHistory.SuspendLayout();
+            this.tabTransactions.SuspendLayout();
+            this.pnlTransactions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // tabTickerDetail
@@ -81,11 +96,12 @@ namespace DavinSys.StockReader.UI
             this.tabTickerDetail.Controls.Add(this.tabEarnings);
             this.tabTickerDetail.Controls.Add(this.tabTrends);
             this.tabTickerDetail.Controls.Add(this.tabHistory);
+            this.tabTickerDetail.Controls.Add(this.tabTransactions);
             this.tabTickerDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabTickerDetail.Location = new System.Drawing.Point(0, 0);
             this.tabTickerDetail.Name = "tabTickerDetail";
             this.tabTickerDetail.SelectedIndex = 0;
-            this.tabTickerDetail.Size = new System.Drawing.Size(589, 297);
+            this.tabTickerDetail.Size = new System.Drawing.Size(714, 425);
             this.tabTickerDetail.TabIndex = 0;
             // 
             // tabPricing
@@ -94,7 +110,7 @@ namespace DavinSys.StockReader.UI
             this.tabPricing.Location = new System.Drawing.Point(4, 22);
             this.tabPricing.Name = "tabPricing";
             this.tabPricing.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPricing.Size = new System.Drawing.Size(581, 271);
+            this.tabPricing.Size = new System.Drawing.Size(706, 399);
             this.tabPricing.TabIndex = 0;
             this.tabPricing.Text = "Pricing";
             this.tabPricing.UseVisualStyleBackColor = true;
@@ -118,7 +134,7 @@ namespace DavinSys.StockReader.UI
             this.pnlPricing.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPricing.Location = new System.Drawing.Point(3, 3);
             this.pnlPricing.Name = "pnlPricing";
-            this.pnlPricing.Size = new System.Drawing.Size(575, 265);
+            this.pnlPricing.Size = new System.Drawing.Size(700, 393);
             this.pnlPricing.TabIndex = 0;
             // 
             // lblVolume
@@ -260,7 +276,7 @@ namespace DavinSys.StockReader.UI
             this.tabDividends.Location = new System.Drawing.Point(4, 22);
             this.tabDividends.Name = "tabDividends";
             this.tabDividends.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDividends.Size = new System.Drawing.Size(581, 271);
+            this.tabDividends.Size = new System.Drawing.Size(706, 399);
             this.tabDividends.TabIndex = 1;
             this.tabDividends.Text = "Dividends";
             this.tabDividends.UseVisualStyleBackColor = true;
@@ -276,7 +292,7 @@ namespace DavinSys.StockReader.UI
             this.pnlDividends.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDividends.Location = new System.Drawing.Point(3, 3);
             this.pnlDividends.Name = "pnlDividends";
-            this.pnlDividends.Size = new System.Drawing.Size(575, 265);
+            this.pnlDividends.Size = new System.Drawing.Size(700, 393);
             this.pnlDividends.TabIndex = 0;
             // 
             // lblDividendYield
@@ -341,7 +357,7 @@ namespace DavinSys.StockReader.UI
             this.tabEarnings.Controls.Add(this.pnlEarnings);
             this.tabEarnings.Location = new System.Drawing.Point(4, 22);
             this.tabEarnings.Name = "tabEarnings";
-            this.tabEarnings.Size = new System.Drawing.Size(581, 271);
+            this.tabEarnings.Size = new System.Drawing.Size(706, 399);
             this.tabEarnings.TabIndex = 2;
             this.tabEarnings.Text = "Earnings";
             this.tabEarnings.UseVisualStyleBackColor = true;
@@ -355,7 +371,7 @@ namespace DavinSys.StockReader.UI
             this.pnlEarnings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlEarnings.Location = new System.Drawing.Point(0, 0);
             this.pnlEarnings.Name = "pnlEarnings";
-            this.pnlEarnings.Size = new System.Drawing.Size(581, 271);
+            this.pnlEarnings.Size = new System.Drawing.Size(706, 399);
             this.pnlEarnings.TabIndex = 0;
             // 
             // lblPE
@@ -401,7 +417,7 @@ namespace DavinSys.StockReader.UI
             this.tabTrends.Controls.Add(this.pnlTrends);
             this.tabTrends.Location = new System.Drawing.Point(4, 22);
             this.tabTrends.Name = "tabTrends";
-            this.tabTrends.Size = new System.Drawing.Size(581, 271);
+            this.tabTrends.Size = new System.Drawing.Size(706, 399);
             this.tabTrends.TabIndex = 3;
             this.tabTrends.Text = "Trends";
             this.tabTrends.UseVisualStyleBackColor = true;
@@ -411,7 +427,7 @@ namespace DavinSys.StockReader.UI
             this.pnlTrends.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTrends.Location = new System.Drawing.Point(0, 0);
             this.pnlTrends.Name = "pnlTrends";
-            this.pnlTrends.Size = new System.Drawing.Size(581, 271);
+            this.pnlTrends.Size = new System.Drawing.Size(706, 399);
             this.pnlTrends.TabIndex = 0;
             // 
             // tabHistory
@@ -419,7 +435,7 @@ namespace DavinSys.StockReader.UI
             this.tabHistory.Controls.Add(this.pnlHistory);
             this.tabHistory.Location = new System.Drawing.Point(4, 22);
             this.tabHistory.Name = "tabHistory";
-            this.tabHistory.Size = new System.Drawing.Size(581, 271);
+            this.tabHistory.Size = new System.Drawing.Size(706, 399);
             this.tabHistory.TabIndex = 4;
             this.tabHistory.Text = "History";
             this.tabHistory.UseVisualStyleBackColor = true;
@@ -429,14 +445,94 @@ namespace DavinSys.StockReader.UI
             this.pnlHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHistory.Location = new System.Drawing.Point(0, 0);
             this.pnlHistory.Name = "pnlHistory";
-            this.pnlHistory.Size = new System.Drawing.Size(581, 271);
+            this.pnlHistory.Size = new System.Drawing.Size(706, 399);
             this.pnlHistory.TabIndex = 0;
+            // 
+            // tabTransactions
+            // 
+            this.tabTransactions.Controls.Add(this.pnlTransactions);
+            this.tabTransactions.Location = new System.Drawing.Point(4, 22);
+            this.tabTransactions.Name = "tabTransactions";
+            this.tabTransactions.Size = new System.Drawing.Size(706, 399);
+            this.tabTransactions.TabIndex = 5;
+            this.tabTransactions.Text = "Transactions";
+            this.tabTransactions.UseVisualStyleBackColor = true;
+            // 
+            // pnlTransactions
+            // 
+            this.pnlTransactions.Controls.Add(this.transactionGrid);
+            this.pnlTransactions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTransactions.Location = new System.Drawing.Point(0, 0);
+            this.pnlTransactions.Name = "pnlTransactions";
+            this.pnlTransactions.Size = new System.Drawing.Size(706, 399);
+            this.pnlTransactions.TabIndex = 0;
+            // 
+            // transactionGrid
+            // 
+            this.transactionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.transactionGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.transDate,
+            this.transType,
+            this.shares,
+            this.price,
+            this.total});
+            this.transactionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.transactionGrid.Location = new System.Drawing.Point(0, 0);
+            this.transactionGrid.Name = "transactionGrid";
+            this.transactionGrid.Size = new System.Drawing.Size(706, 399);
+            this.transactionGrid.TabIndex = 0;
+            // 
+            // transDate
+            // 
+            this.transDate.DataPropertyName = "TransactionDate";
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            this.transDate.DefaultCellStyle = dataGridViewCellStyle1;
+            this.transDate.HeaderText = "Date";
+            this.transDate.Name = "transDate";
+            // 
+            // transType
+            // 
+            this.transType.DataPropertyName = "Action";
+            this.transType.HeaderText = "Trans Type";
+            this.transType.Items.AddRange(new object[] {
+            "Purchase",
+            "Sale",
+            "Dividend ReInv"});
+            this.transType.Name = "transType";
+            // 
+            // shares
+            // 
+            this.shares.DataPropertyName = "ShareCount";
+            dataGridViewCellStyle2.Format = "N4";
+            dataGridViewCellStyle2.NullValue = null;
+            this.shares.DefaultCellStyle = dataGridViewCellStyle2;
+            this.shares.HeaderText = "Shares";
+            this.shares.Name = "shares";
+            // 
+            // price
+            // 
+            this.price.DataPropertyName = "SharePrice";
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.price.DefaultCellStyle = dataGridViewCellStyle3;
+            this.price.HeaderText = "Price";
+            this.price.Name = "price";
+            // 
+            // total
+            // 
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.total.DefaultCellStyle = dataGridViewCellStyle4;
+            this.total.HeaderText = "Total";
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
             // 
             // TickerDetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 297);
+            this.ClientSize = new System.Drawing.Size(714, 425);
             this.Controls.Add(this.tabTickerDetail);
             this.Name = "TickerDetailForm";
             this.Text = "Equity Details";
@@ -452,6 +548,9 @@ namespace DavinSys.StockReader.UI
             this.pnlEarnings.PerformLayout();
             this.tabTrends.ResumeLayout(false);
             this.tabHistory.ResumeLayout(false);
+            this.tabTransactions.ResumeLayout(false);
+            this.pnlTransactions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.transactionGrid)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -493,5 +592,13 @@ namespace DavinSys.StockReader.UI
 		private System.Windows.Forms.Label lblEPS;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TabPage tabTransactions;
+        private System.Windows.Forms.Panel pnlTransactions;
+        private System.Windows.Forms.DataGridView transactionGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn transDate;
+        private System.Windows.Forms.DataGridViewComboBoxColumn transType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn shares;
+        private System.Windows.Forms.DataGridViewTextBoxColumn price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn total;
 	}
 }
