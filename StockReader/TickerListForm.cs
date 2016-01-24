@@ -12,6 +12,8 @@ namespace DavinSys.StockReader.UI
 {
     public partial class TickerListForm : Form
     {
+        private List<Holding> positions;
+
         public TickerListForm()
         {
             InitializeComponent();
@@ -42,25 +44,21 @@ namespace DavinSys.StockReader.UI
             }
         }
 
-		public List<TickerType> TickerList
+		public List<Holding> TickerList
 		{
 			get
 			{
-                List<TickerType> list = new List<TickerType>();
-
-				foreach (object item in lbTickers.Items)
-				{
-					list.Add((TickerType)item);
-				}
-
-				return list;
-			}
+                return positions;
+            }
 
 			set
 			{
+                positions = value;
+
 				lbTickers.Items.Clear();
 
-				lbTickers.Items.AddRange(value.ToArray());
+                foreach (Holding h in positions)
+                    lbTickers.Items.Add(h.TickerText);
 			}
 
 		}
@@ -69,6 +67,7 @@ namespace DavinSys.StockReader.UI
 		{
 			if (TickerTools.ValidateTicker(txtTicker.Text) == true)
 			{
+                positions.Add(new Holding(txtTicker.Text.ToUpper()));
 				lbTickers.Items.Add(txtTicker.Text.ToUpper());
 				txtTicker.Text = "";
 			}
@@ -80,7 +79,24 @@ namespace DavinSys.StockReader.UI
 
 		private void btnRemoveTicker_Click(object sender, EventArgs e)
 		{
-			lbTickers.Items.RemoveAt(lbTickers.SelectedIndex);
+            bool doDelete = true;
+            string ticker = lbTickers.SelectedItem.ToString();
+
+            Holding h = positions.Find(p => p.TickerText.Equals(ticker));
+
+            if (h.SharesHeld > 0)
+            {
+                DialogResult d = MessageBox.Show(ticker + " has transactions, are you sure you wish to delete it?", "Delete Ticker", MessageBoxButtons.YesNo);
+                if (d == DialogResult.No)
+                    doDelete = false;
+            }
+
+            if (doDelete == true)
+            {
+                lbTickers.Items.RemoveAt(lbTickers.SelectedIndex);
+
+                positions.Remove(h);
+            }
 		}
     }
 }

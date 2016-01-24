@@ -13,12 +13,4 @@ namespace DavinSys.StockReader.Data
 		}
 
 	}
-    public partial class TickerType
-    {
-        public override string ToString()
-        {
-            return this.TickerText;
-        }
-    }
-
 }

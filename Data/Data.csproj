@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Portfolio.cs">
+      <DependentUpon>Portfolio.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PortfolioExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StockReaderConfig.cs">
       <DependentUpon>StockReaderConfig.xsd</DependentUpon>
@@ -56,6 +60,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Portfolio.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="StockReaderConfig.xsd">
       <SubType>Designer</SubType>
     </None>

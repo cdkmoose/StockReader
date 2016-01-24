@@ -18,11 +18,13 @@ namespace DavinSys.StockReader.UI
 {
 	public partial class StockReaderForm : Form
 	{
-
+        private static char[] delim = { '"', '\'' };
         private SortableBindingList<TickerData> dataList;
 		private StockReaderConfig config;
 		private DataGridViewColumn sortColumn = null;
 		private SortOrder sortOrder;
+        private PortFolio portfolio;
+        private string portfolioPath;
 
 		public StockReaderForm()
 		{
@@ -35,7 +37,9 @@ namespace DavinSys.StockReader.UI
 
             dataList = new SortableBindingList<TickerData>();
 
-			ProcessTickers();
+            portfolioPath = "";
+            if (portfolio != null)
+			    ProcessTickers();
 
 			sortColumn = stockDataGridView.Columns[0];
 			sortOrder = stockDataGridView.SortOrder;
@@ -55,7 +59,67 @@ namespace DavinSys.StockReader.UI
 
 		}
 
-		private void LoadConfigInfo()
+        private void LoadPortfolio(string fName)
+        {
+            FileStream fStream = null;
+            try
+            {
+                XmlSerializer portInput = new XmlSerializer(typeof(PortFolio));
+
+                fStream = new FileStream(fName, FileMode.Open, FileAccess.Read, FileShare.None);
+
+                portfolio = (PortFolio)portInput.Deserialize(fStream);
+
+                fStream.Close();
+                portfolioPath = fName;
+
+                foreach (Holding hld in portfolio.Positions)
+                {
+                    dataList.Add(new TickerData(hld));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Loading Portfolio File");
+                portfolio = null;
+                portfolioPath = "";
+            }
+            finally
+            {
+                if (fStream != null)
+                    fStream.Close();
+
+            }
+        }
+
+        private void SavePortfolio(string fName)
+        {
+            FileStream fStream = null;
+            try
+            {
+                XmlSerializer portOutput = new XmlSerializer(typeof(PortFolio));
+
+                fStream = new FileStream(fName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+
+                portOutput.Serialize(fStream, portfolio);
+
+                fStream.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error saving Portfolio File");
+            }
+            finally
+            {
+                if (fStream != null)
+                    fStream.Close();
+
+            }
+        }
+
+        private void LoadConfigInfo()
 		{
 			FileStream fStream = null;
 			try
@@ -157,15 +221,16 @@ namespace DavinSys.StockReader.UI
 
                 response = NetComm.GetDataResponse(request);
 
-				dataList.Clear();
-
 				foreach (string data in response)
 				{
 					if (data != null && data.Trim().Length > 0)
 					{
-						TickerData stats = new TickerData(data);
-						dataList.Add(stats);
-					}
+                        String[] values = data.Split(new Char[] { ',' });
+
+                        TickerData tick = FindTickerDataItem(values[0].Trim(delim));
+                        if (tick != null)
+                            tick.SetDynamicData(values);
+                    }
 				}
 
 				stockDataGridView.DataSource = dataList;
@@ -177,14 +242,23 @@ namespace DavinSys.StockReader.UI
 			}
 		}
 
+        private TickerData FindTickerDataItem(string ticker)
+        {
+            foreach (TickerData tckr in dataList)
+                if (tckr.TickerSymbol == ticker)
+                    return tckr;
+
+            return null;
+        }
+
 		private string TickerListString()
 		{
 			StringBuilder sb = new StringBuilder();
 			string result = "";
 
-			foreach (TickerType ticker in config.TickerList)
+			foreach (Holding hld in portfolio.Positions)
 			{
-				sb.Append(ticker.TickerText + ",");
+				sb.Append(hld.TickerText + ",");
 			}
 
 			if (sb.Length > 0)
@@ -214,6 +288,9 @@ namespace DavinSys.StockReader.UI
 
 		private void tickerTimer_Tick(object sender, EventArgs e)
 		{
+            if (portfolio == null)
+                return;
+
 			tickerTimer.Enabled = false;
 
 			stockDataGridView.SuspendLayout();
@@ -350,13 +427,28 @@ namespace DavinSys.StockReader.UI
         {
             TickerListForm form = new TickerListForm();
 
-			form.TickerList = new List<TickerType>(config.TickerList);
+			form.TickerList = new List<Holding>(portfolio.Positions);
 			if (form.ShowDialog() == DialogResult.OK)
 			{
-                config.TickerList = form.TickerList.ToArray();
+                portfolio.Positions = form.TickerList.ToArray();
+
+                foreach (Holding hld in portfolio.Positions)
+                {
+                    if (TickerIsInDatalist(hld.TickerText) == false)
+                        dataList.Add(new TickerData(hld));
+                }
 
 				ProcessTickers();
 			}
+        }
+
+        private bool TickerIsInDatalist(string ticker)
+        {
+            foreach (TickerData tdata in dataList)
+                if (tdata.TickerSymbol.Equals(ticker) == true)
+                    return true;
+
+            return false;
         }
 
 		private void stockDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -379,11 +471,11 @@ namespace DavinSys.StockReader.UI
 			form.ShowDialog();
 		}
 
-        private TickerType GetTickerTrans(string ticker)
+        private Holding GetTickerTrans(string ticker)
         {
-            for (int i = 0; i < config.TickerList.Length; i++)
-                if (config.TickerList[i].TickerText == ticker)
-                    return config.TickerList[i];
+            for (int i = 0; i < portfolio.Positions.Length; i++)
+                if (portfolio.Positions[i].TickerText == ticker)
+                    return portfolio.Positions[i];
 
             return null;
         }
@@ -418,6 +510,64 @@ namespace DavinSys.StockReader.UI
 				}
 			}
 		}
+
+        private void loadPortfolioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.InitialDirectory = "c:\\temp";
+            dlg.Filter = "Portfolio files (*.prtf)|*.prtf";
+            dlg.FilterIndex = 2;
+            dlg.RestoreDirectory = true;
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                LoadPortfolio(dlg.FileName);
+
+                if (portfolio != null)
+                    ProcessTickers();
+            }
+        }
+
+        private void newPortfolioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (portfolio != null)
+            {
+                if (MessageBox.Show("Are you sure you wish to lose the current portfolio?", "New Portfolio", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+                    return;
+            }
+            portfolio = new PortFolio();
+
+            TickerListForm frm = new TickerListForm();
+            DialogResult res = frm.ShowDialog();
+
+            if (res == System.Windows.Forms.DialogResult.OK)
+            {
+                portfolio.Positions = frm.TickerList.ToArray();
+            }
+        }
+
+        private void savePortfolioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(portfolioPath))
+            {
+                SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = "c:\\temp";
+                dlg.Filter = "Portfolio files (*.prtf)|*.prtf";
+                dlg.FilterIndex = 2;
+                dlg.RestoreDirectory = true;
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    portfolioPath = dlg.FileName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            SavePortfolio(portfolioPath);
+        }
 
 	}
 }

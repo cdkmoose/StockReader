@@ -13,7 +13,7 @@ namespace DavinSys.StockReader.UI
 {
 	public partial class TickerDetailForm : Form
 	{
-        private TickerType tickerTrans = null;
+        private Holding tickerTrans = null;
 
 		public TickerDetailForm()
 		{
@@ -21,7 +21,7 @@ namespace DavinSys.StockReader.UI
             transactionGrid.AutoGenerateColumns = false;
 		}
 
-        public TickerType TickerTrans
+        public Holding TickerTrans
         {
             get
             {

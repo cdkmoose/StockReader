@@ -7,6 +7,7 @@ namespace DavinSys.StockReader.Data
     public class TickerData
     {
         private static char[] delim = { '"', '\'' };
+        private Holding holding;
         string tickerSymbol;
 		string price;
 		string change;
@@ -38,10 +39,11 @@ namespace DavinSys.StockReader.Data
 			Initialize();
         }
 
-        public TickerData(string source)
+        public TickerData(Holding source)
         {
 			Initialize();
-            SetData(source);
+            holding = source;
+            tickerSymbol = holding.TickerText;
         }
 
 		private void Initialize()
@@ -49,10 +51,8 @@ namespace DavinSys.StockReader.Data
 			// placeholder for now, original code moived to static declaration
 		}
 
-        public void SetData(string source)
+        public void SetDynamicData(string[] values)
         {
-            String[] values = source.Split(new Char[] {','});
-
             tickerSymbol = values[0].Trim(delim);
             price = values[1];
             change = values[2];
@@ -383,7 +383,54 @@ namespace DavinSys.StockReader.Data
 				}
 			}
 		}
-		#endregion
+
+        public Holding Position
+        {
+            get
+            {
+                return holding;
+            }
+
+            set
+            {
+                holding = value;
+            }
+        }
+
+        public double NumShares
+        {
+            get
+            {
+                return holding.SharesHeld;
+            }
+        }
+
+        public double AssetValue
+        {
+            get
+            {
+                double curPrice = double.Parse(price);
+                return curPrice * holding.SharesHeld;
+            }
+        }
+
+        public double CostBasis
+        {
+            get
+            {
+                return holding.CostBasis;
+            }
+        }
+
+        public double InvestmentBasis
+        {
+            get
+            {
+                return holding.InvestmentBasis;
+            }
+        }
+
+        #endregion
 
     }
 }

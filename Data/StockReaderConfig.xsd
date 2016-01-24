@@ -4,7 +4,6 @@
     <xs:complexType>
     	<xs:sequence>
     	  <xs:element name="ConfigData" type="ConfigDataType"></xs:element>
-    	  <xs:element name="TickerList" type="TickerListType"></xs:element>
         <xs:element name="ColumnList" type="ColumnListType"></xs:element>
       </xs:sequence>
     </xs:complexType>
@@ -23,32 +22,6 @@
   		</xs:element>
   	</xs:sequence>
   </xs:complexType>
-  <xs:simpleType name="TransactionMode">
-    <xs:restriction base='xs:string' >
-      <xs:enumeration value='Purchase' />
-      <xs:enumeration value='Sale' />
-      <xs:enumeration value='Dividend ReInv' />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:complexType name='TransactionType'>
-    <xs:sequence>
-      <xs:element name='ShareCount' type='xs:integer'/>
-      <xs:element name='SharePrice' type='xs:decimal'/>
-      <xs:element name='Action' type='TransactionMode'/>
-      <xs:element name='TransactionDate' type='xs:date'/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name='TransactionListType'>
-    <xs:sequence>
-      <xs:element name="Transactions" type="TransactionType" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="TickerType">
-    <xs:sequence>
-      <xs:element name="TickerText" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="TransactionList" type="TransactionListType" maxOccurs="1"/>
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="ConfigDataType">
   	<xs:sequence>
   		<xs:element name="Timer" type="TimerType" minOccurs="1" maxOccurs="1" >
@@ -60,11 +33,6 @@
 			<xs:element name="ColumnDef" minOccurs="0"
 				maxOccurs="unbounded" type="ColumnDefType">
 			</xs:element>
-		</xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="TickerListType">
-		<xs:sequence>
-			<xs:element name="Ticker" type="TickerType" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
   </xs:complexType>
   <xs:complexType name="TimerType">
