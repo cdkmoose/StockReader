@@ -4,6 +4,36 @@
     {
     }
 
+    public partial class TransactionType
+    {
+        public string ActionString
+        {
+            get
+            {
+                string res;
+
+                switch (actionField)
+                {
+                    case TransactionMode.DividendReInv:
+                        res = "DivReInv";
+                        break;
+                    case TransactionMode.Purchase:
+                        res = "Buy";
+                        break;
+
+                    case TransactionMode.Sale:
+                        res = "Sell";
+                        break;
+                        
+                    default:
+                        res = "";
+                        break;
+                }
+
+                return res;
+            }
+        }
+    }
     public partial class Holding
     {
         public Holding(string ticker)

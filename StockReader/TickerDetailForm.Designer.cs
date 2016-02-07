@@ -69,9 +69,19 @@ namespace DavinSys.StockReader.UI
             this.pnlHistory = new System.Windows.Forms.Panel();
             this.tabTransactions = new System.Windows.Forms.TabPage();
             this.pnlTransactions = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.transactionDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.addTransactionButton = new System.Windows.Forms.Button();
+            this.priceTextBox = new System.Windows.Forms.TextBox();
+            this.sharesTextbox = new System.Windows.Forms.TextBox();
+            this.transactionTypeCombo = new System.Windows.Forms.ComboBox();
             this.transactionGrid = new System.Windows.Forms.DataGridView();
             this.transDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.transType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.transType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.shares = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,6 +96,7 @@ namespace DavinSys.StockReader.UI
             this.tabHistory.SuspendLayout();
             this.tabTransactions.SuspendLayout();
             this.pnlTransactions.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.transactionGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -460,6 +471,7 @@ namespace DavinSys.StockReader.UI
             // 
             // pnlTransactions
             // 
+            this.pnlTransactions.Controls.Add(this.groupBox1);
             this.pnlTransactions.Controls.Add(this.transactionGrid);
             this.pnlTransactions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTransactions.Location = new System.Drawing.Point(0, 0);
@@ -467,8 +479,112 @@ namespace DavinSys.StockReader.UI
             this.pnlTransactions.Size = new System.Drawing.Size(706, 399);
             this.pnlTransactions.TabIndex = 0;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.transactionDatePicker);
+            this.groupBox1.Controls.Add(this.addTransactionButton);
+            this.groupBox1.Controls.Add(this.priceTextBox);
+            this.groupBox1.Controls.Add(this.sharesTextbox);
+            this.groupBox1.Controls.Add(this.transactionTypeCombo);
+            this.groupBox1.Location = new System.Drawing.Point(56, 41);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(565, 100);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Transaction";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(370, 43);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(62, 13);
+            this.label16.TabIndex = 9;
+            this.label16.Text = "Share Price";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(263, 43);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(66, 13);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "Share Count";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(126, 42);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(90, 13);
+            this.label14.TabIndex = 7;
+            this.label14.Text = "Transaction Type";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(16, 43);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(86, 13);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "TransactionDate";
+            // 
+            // transactionDatePicker
+            // 
+            this.transactionDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.transactionDatePicker.Location = new System.Drawing.Point(16, 62);
+            this.transactionDatePicker.Name = "transactionDatePicker";
+            this.transactionDatePicker.Size = new System.Drawing.Size(104, 20);
+            this.transactionDatePicker.TabIndex = 5;
+            this.transactionDatePicker.ValueChanged += new System.EventHandler(this.transactionDatePicker_ValueChanged);
+            // 
+            // addTransactionButton
+            // 
+            this.addTransactionButton.Enabled = false;
+            this.addTransactionButton.Location = new System.Drawing.Point(476, 61);
+            this.addTransactionButton.Name = "addTransactionButton";
+            this.addTransactionButton.Size = new System.Drawing.Size(75, 23);
+            this.addTransactionButton.TabIndex = 4;
+            this.addTransactionButton.Text = "Add";
+            this.addTransactionButton.UseVisualStyleBackColor = true;
+            this.addTransactionButton.Click += new System.EventHandler(this.addTransactionButton_Click);
+            // 
+            // priceTextBox
+            // 
+            this.priceTextBox.Location = new System.Drawing.Point(370, 62);
+            this.priceTextBox.Name = "priceTextBox";
+            this.priceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.priceTextBox.TabIndex = 3;
+            this.priceTextBox.TextChanged += new System.EventHandler(this.priceTextBox_TextChanged);
+            // 
+            // sharesTextbox
+            // 
+            this.sharesTextbox.Location = new System.Drawing.Point(263, 62);
+            this.sharesTextbox.Name = "sharesTextbox";
+            this.sharesTextbox.Size = new System.Drawing.Size(100, 20);
+            this.sharesTextbox.TabIndex = 2;
+            this.sharesTextbox.TextChanged += new System.EventHandler(this.SharesTextbox_TextChanged);
+            // 
+            // transactionTypeCombo
+            // 
+            this.transactionTypeCombo.FormattingEnabled = true;
+            this.transactionTypeCombo.Items.AddRange(new object[] {
+            "Buy",
+            "Sell",
+            "DivReInv"});
+            this.transactionTypeCombo.Location = new System.Drawing.Point(126, 62);
+            this.transactionTypeCombo.Name = "transactionTypeCombo";
+            this.transactionTypeCombo.Size = new System.Drawing.Size(121, 21);
+            this.transactionTypeCombo.TabIndex = 1;
+            this.transactionTypeCombo.SelectedIndexChanged += new System.EventHandler(this.transactionTypeCombo_SelectedIndexChanged);
+            // 
             // transactionGrid
             // 
+            this.transactionGrid.AllowUserToAddRows = false;
             this.transactionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.transactionGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.transDate,
@@ -476,10 +592,12 @@ namespace DavinSys.StockReader.UI
             this.shares,
             this.price,
             this.total});
-            this.transactionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.transactionGrid.Location = new System.Drawing.Point(0, 0);
+            this.transactionGrid.Location = new System.Drawing.Point(56, 171);
             this.transactionGrid.Name = "transactionGrid";
-            this.transactionGrid.Size = new System.Drawing.Size(706, 399);
+            this.transactionGrid.RowHeadersWidth = 20;
+            this.transactionGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.transactionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.transactionGrid.Size = new System.Drawing.Size(565, 181);
             this.transactionGrid.TabIndex = 0;
             // 
             // transDate
@@ -493,13 +611,10 @@ namespace DavinSys.StockReader.UI
             // 
             // transType
             // 
-            this.transType.DataPropertyName = "Action";
-            this.transType.HeaderText = "Trans Type";
-            this.transType.Items.AddRange(new object[] {
-            "Purchase",
-            "Sale",
-            "Dividend ReInv"});
+            this.transType.DataPropertyName = "ActionString";
+            this.transType.HeaderText = "Transaction Type";
             this.transType.Name = "transType";
+            this.transType.Width = 150;
             // 
             // shares
             // 
@@ -536,6 +651,7 @@ namespace DavinSys.StockReader.UI
             this.Controls.Add(this.tabTickerDetail);
             this.Name = "TickerDetailForm";
             this.Text = "Equity Details";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TickerDetailForm_FormClosing);
             this.tabTickerDetail.ResumeLayout(false);
             this.tabPricing.ResumeLayout(false);
             this.pnlPricing.ResumeLayout(false);
@@ -550,6 +666,8 @@ namespace DavinSys.StockReader.UI
             this.tabHistory.ResumeLayout(false);
             this.tabTransactions.ResumeLayout(false);
             this.pnlTransactions.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.transactionGrid)).EndInit();
             this.ResumeLayout(false);
 
@@ -595,8 +713,18 @@ namespace DavinSys.StockReader.UI
         private System.Windows.Forms.TabPage tabTransactions;
         private System.Windows.Forms.Panel pnlTransactions;
         private System.Windows.Forms.DataGridView transactionGrid;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DateTimePicker transactionDatePicker;
+        private System.Windows.Forms.Button addTransactionButton;
+        private System.Windows.Forms.TextBox priceTextBox;
+        private System.Windows.Forms.TextBox sharesTextbox;
+        private System.Windows.Forms.ComboBox transactionTypeCombo;
         private System.Windows.Forms.DataGridViewTextBoxColumn transDate;
-        private System.Windows.Forms.DataGridViewComboBoxColumn transType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn transType;
         private System.Windows.Forms.DataGridViewTextBoxColumn shares;
         private System.Windows.Forms.DataGridViewTextBoxColumn price;
         private System.Windows.Forms.DataGridViewTextBoxColumn total;

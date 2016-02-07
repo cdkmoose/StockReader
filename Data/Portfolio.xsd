@@ -15,7 +15,7 @@
   </xs:simpleType>
   <xs:complexType name='TransactionType'>
     <xs:sequence>
-      <xs:element name='ShareCount' type='xs:int'/>
+      <xs:element name='ShareCount' type='xs:double'/>
       <xs:element name='SharePrice' type='xs:double'/>
       <xs:element name='Action' type='TransactionMode'/>
       <xs:element name='TransactionDate' type='xs:date'/>

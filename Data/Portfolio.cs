@@ -80,7 +80,7 @@ namespace DavinSys.StockReader.Data {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/Portfolio.xsd")]
     public partial class TransactionType {
         
-        private int shareCountField;
+        private double shareCountField;
         
         private double sharePriceField;
         
@@ -89,7 +89,7 @@ namespace DavinSys.StockReader.Data {
         private System.DateTime transactionDateField;
         
         /// <remarks/>
-        public int ShareCount {
+        public double ShareCount {
             get {
                 return this.shareCountField;
             }
