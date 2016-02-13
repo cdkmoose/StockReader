@@ -30,12 +30,13 @@ namespace DavinSys.StockReader.UI
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StockReaderForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.newPortfolioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadPortfolioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savePortfolioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tickerListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,9 +50,10 @@ namespace DavinSys.StockReader.UI
             this.notifyContextMennu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tickerTimer = new System.Windows.Forms.Timer(this.components);
-            this.savePortfolioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.navStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenuStrip.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
+            this.mainStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stockDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,6 +92,13 @@ namespace DavinSys.StockReader.UI
             this.loadPortfolioToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.loadPortfolioToolStripMenuItem.Text = "Load Portfolio...";
             this.loadPortfolioToolStripMenuItem.Click += new System.EventHandler(this.loadPortfolioToolStripMenuItem_Click);
+            // 
+            // savePortfolioToolStripMenuItem
+            // 
+            this.savePortfolioToolStripMenuItem.Name = "savePortfolioToolStripMenuItem";
+            this.savePortfolioToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.savePortfolioToolStripMenuItem.Text = "Save Portfolio...";
+            this.savePortfolioToolStripMenuItem.Click += new System.EventHandler(this.savePortfolioToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -162,6 +171,8 @@ namespace DavinSys.StockReader.UI
             // 
             // mainStatusStrip
             // 
+            this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.navStatusLabel});
             this.mainStatusStrip.Location = new System.Drawing.Point(0, 423);
             this.mainStatusStrip.Name = "mainStatusStrip";
             this.mainStatusStrip.Size = new System.Drawing.Size(803, 22);
@@ -172,16 +183,16 @@ namespace DavinSys.StockReader.UI
             // 
             this.stockDataGridView.AllowUserToAddRows = false;
             this.stockDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
-            this.stockDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.stockDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            this.stockDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.stockDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.stockDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.stockDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.stockDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -213,12 +224,10 @@ namespace DavinSys.StockReader.UI
             this.tickerTimer.Interval = 5000;
             this.tickerTimer.Tick += new System.EventHandler(this.tickerTimer_Tick);
             // 
-            // savePortfolioToolStripMenuItem
+            // navStatusLabel
             // 
-            this.savePortfolioToolStripMenuItem.Name = "savePortfolioToolStripMenuItem";
-            this.savePortfolioToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.savePortfolioToolStripMenuItem.Text = "Save Portfolio...";
-            this.savePortfolioToolStripMenuItem.Click += new System.EventHandler(this.savePortfolioToolStripMenuItem_Click);
+            this.navStatusLabel.Name = "navStatusLabel";
+            this.navStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // StockReaderForm
             // 
@@ -238,6 +247,8 @@ namespace DavinSys.StockReader.UI
             this.mainMenuStrip.PerformLayout();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
+            this.mainStatusStrip.ResumeLayout(false);
+            this.mainStatusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stockDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -264,6 +275,7 @@ namespace DavinSys.StockReader.UI
         private System.Windows.Forms.ToolStripMenuItem loadPortfolioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newPortfolioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem savePortfolioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel navStatusLabel;
 	}
 }
 

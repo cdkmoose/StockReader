@@ -207,6 +207,7 @@ namespace DavinSys.StockReader.UI
 			string[] response;
             string request;
 			string tickers;
+            double nav = 0.0F;
 
 			try
 			{
@@ -234,7 +235,13 @@ namespace DavinSys.StockReader.UI
 				}
 
 				stockDataGridView.DataSource = dataList;
-				
+
+                foreach (TickerData t in dataList)
+                {
+                    nav += t.AssetValue;
+                }
+
+                navStatusLabel.Text = string.Format("NAV: {0:C2}", nav);
 			}
 			catch (Exception ex)
 			{
