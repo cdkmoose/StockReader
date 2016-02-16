@@ -414,6 +414,22 @@ namespace DavinSys.StockReader.Data
             }
         }
 
+        public double CostProfit
+        {
+            get
+            {
+                return AssetValue - CostBasis;
+            }
+        }
+
+        public double InvestmentProfit
+        {
+            get
+            {
+                return AssetValue - InvestmentBasis;
+
+            }
+        }
         public double CostBasis
         {
             get

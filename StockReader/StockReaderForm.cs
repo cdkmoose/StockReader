@@ -320,45 +320,38 @@ namespace DavinSys.StockReader.UI
 
 		private void stockDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
-			double val;
 
-
-			if (stockDataGridView.Columns[e.ColumnIndex].Name == "Change")
+			if (stockDataGridView.Columns[e.ColumnIndex].Name == "Change" ||
+                stockDataGridView.Columns[e.ColumnIndex].Name == "PctChange" ||
+                stockDataGridView.Columns[e.ColumnIndex].Name == "CostProfit" ||
+                stockDataGridView.Columns[e.ColumnIndex].Name == "InvProfit" )
 			{
-				e.CellStyle.ForeColor = Color.Black;
-
-				if (double.TryParse(e.Value.ToString(), out val) == true)
-				{
-					if (val > 0.0F)
-					{
-						e.CellStyle.ForeColor = Color.Green;
-					}
-					else if (val < 0.0F)
-					{
-						e.CellStyle.ForeColor = Color.Red;
-					}
-				}
+                SetCellForeground(e);
 			}
-            else if (stockDataGridView.Columns[e.ColumnIndex].Name == "PctChange")
+
+		}
+
+        private void SetCellForeground(DataGridViewCellFormattingEventArgs e)
+        {
+            double val;
+
+            if (double.TryParse(e.Value.ToString(), out val) == true)
             {
-				e.CellStyle.ForeColor = Color.Black;
-
-                TickerData data = (TickerData) stockDataGridView.Rows[e.RowIndex].DataBoundItem;
-
-                if (double.TryParse(data.Change, out val) == true)
+                if (val > 0.0F)
                 {
-                    if (val > 0.0F)
-                    {
-                        e.CellStyle.ForeColor = Color.Green;
-                    }
-                    else if (val < 0.0F)
-                    {
-                        e.CellStyle.ForeColor = Color.Red;
-                    }
+                    e.CellStyle.ForeColor = Color.Green;
+                }
+                else if (val < 0.0F)
+                {
+                    e.CellStyle.ForeColor = Color.Red;
+                }
+                else
+                {
+                    e.CellStyle.ForeColor = Color.Black;
                 }
             }
 
-		}
+        }
 
         private void StockReaderForm_FormClosed(object sender, FormClosedEventArgs e)
         {
