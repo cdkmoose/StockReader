@@ -46,11 +46,13 @@ namespace DavinSys.StockReader.UI
             this.tsbIncreaseFont = new System.Windows.Forms.ToolStripButton();
             this.tsbDecreaseFont = new System.Windows.Forms.ToolStripButton();
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.navStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.portProfitLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.invProfitLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.stockDataGridView = new System.Windows.Forms.DataGridView();
             this.notifyContextMennu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tickerTimer = new System.Windows.Forms.Timer(this.components);
-            this.navStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenuStrip.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
@@ -172,12 +174,32 @@ namespace DavinSys.StockReader.UI
             // mainStatusStrip
             // 
             this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.navStatusLabel});
+            this.navStatusLabel,
+            this.portProfitLabel,
+            this.invProfitLabel});
             this.mainStatusStrip.Location = new System.Drawing.Point(0, 423);
             this.mainStatusStrip.Name = "mainStatusStrip";
             this.mainStatusStrip.Size = new System.Drawing.Size(803, 22);
             this.mainStatusStrip.TabIndex = 2;
             this.mainStatusStrip.Text = "statusStrip1";
+            // 
+            // navStatusLabel
+            // 
+            this.navStatusLabel.Name = "navStatusLabel";
+            this.navStatusLabel.Size = new System.Drawing.Size(30, 17);
+            this.navStatusLabel.Text = "NAV";
+            // 
+            // portProfitLabel
+            // 
+            this.portProfitLabel.Name = "portProfitLabel";
+            this.portProfitLabel.Size = new System.Drawing.Size(61, 17);
+            this.portProfitLabel.Text = "Port Profit";
+            // 
+            // invProfitLabel
+            // 
+            this.invProfitLabel.Name = "invProfitLabel";
+            this.invProfitLabel.Size = new System.Drawing.Size(55, 17);
+            this.invProfitLabel.Text = "Inv Profit";
             // 
             // stockDataGridView
             // 
@@ -224,11 +246,6 @@ namespace DavinSys.StockReader.UI
             this.tickerTimer.Interval = 5000;
             this.tickerTimer.Tick += new System.EventHandler(this.tickerTimer_Tick);
             // 
-            // navStatusLabel
-            // 
-            this.navStatusLabel.Name = "navStatusLabel";
-            this.navStatusLabel.Size = new System.Drawing.Size(0, 17);
-            // 
             // StockReaderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,6 +259,7 @@ namespace DavinSys.StockReader.UI
             this.Name = "StockReaderForm";
             this.Text = "Stock Reader";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StockReaderForm_FormClosed);
+            this.Load += new System.EventHandler(this.StockReaderForm_Load);
             this.Resize += new System.EventHandler(this.StockReaderForm_Resize);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
@@ -276,6 +294,8 @@ namespace DavinSys.StockReader.UI
         private System.Windows.Forms.ToolStripMenuItem newPortfolioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem savePortfolioToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel navStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel portProfitLabel;
+        private System.Windows.Forms.ToolStripStatusLabel invProfitLabel;
 	}
 }
 

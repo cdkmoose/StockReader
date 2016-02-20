@@ -59,7 +59,7 @@ namespace DavinSys.StockReader.UI
 
 		}
 
-        private void LoadPortfolio(string fName)
+        public void LoadPortfolio(string fName)
         {
             FileStream fStream = null;
             try
@@ -124,16 +124,10 @@ namespace DavinSys.StockReader.UI
 			FileStream fStream = null;
 			try
 			{
-				//XmlSerializer input = new XmlSerializer(typeof(StockReaderInfo));
+                string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 				XmlSerializer configInput = new XmlSerializer(typeof(StockReaderConfig));
 
-				//fStream = new FileStream("StockReaderInfo.xml", FileMode.Open,
-				//    FileAccess.Read, FileShare.None);
-
-				//info = (StockReaderInfo)input.Deserialize(fStream);
-				//fStream.Close();
-
-				fStream = new FileStream("StockReaderConfig.xml", FileMode.Open,
+				fStream = new FileStream(path + "\\StockReaderConfig.xml", FileMode.Open,
 					FileAccess.Read, FileShare.None);
 
 				config = (StockReaderConfig)configInput.Deserialize(fStream);
@@ -169,9 +163,11 @@ namespace DavinSys.StockReader.UI
 
 			try
 			{
-				XmlSerializer output = new XmlSerializer(typeof(StockReaderConfig));
+                string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 
-				fStream = new FileStream("StockReaderConfig.xml", FileMode.Create,
+                XmlSerializer output = new XmlSerializer(typeof(StockReaderConfig));
+
+				fStream = new FileStream(path + "\\StockReaderConfig.xml", FileMode.Create,
 					FileAccess.Write, FileShare.None);
 
                 output.Serialize(fStream, config);
@@ -207,7 +203,6 @@ namespace DavinSys.StockReader.UI
 			string[] response;
             string request;
 			string tickers;
-            double nav = 0.0F;
 
 			try
 			{
@@ -236,18 +231,32 @@ namespace DavinSys.StockReader.UI
 
 				stockDataGridView.DataSource = dataList;
 
-                foreach (TickerData t in dataList)
-                {
-                    nav += t.AssetValue;
-                }
+                SetStatusValues();
 
-                navStatusLabel.Text = string.Format("NAV: {0:C2}", nav);
 			}
 			catch (Exception ex)
 			{
 				MessageBox.Show("Unexpected HTTP error: " + ex.Message);
 			}
 		}
+
+        private void SetStatusValues()
+        {
+            double nav = 0.0F;
+            double portProfit = 0.0F;
+            double invProfit = 0.0F;
+
+            foreach (TickerData t in dataList)
+            {
+                nav += t.AssetValue;
+                portProfit += t.CostProfit;
+                invProfit += t.InvestmentProfit;
+            }
+
+            navStatusLabel.Text = string.Format("NAV: {0:C2}", nav);
+            portProfitLabel.Text = string.Format("Portfolio Profit: {0:C2}", portProfit);
+            invProfitLabel.Text = string.Format("Investment Profit: {0:C2}", invProfit);
+        }
 
         private TickerData FindTickerDataItem(string ticker)
         {
@@ -567,6 +576,12 @@ namespace DavinSys.StockReader.UI
             }
 
             SavePortfolio(portfolioPath);
+        }
+
+        private void StockReaderForm_Load(object sender, EventArgs e)
+        {
+            if (portfolio != null)
+                ProcessTickers();
         }
 
 	}

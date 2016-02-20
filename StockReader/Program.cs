@@ -14,7 +14,13 @@ namespace DavinSys.StockReader.UI
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new StockReaderForm());
+            StockReaderForm frm = new StockReaderForm();
+
+            string[] args = Environment.GetCommandLineArgs();
+            if (args.Length > 1 && !string.IsNullOrEmpty(args[1]))
+                frm.LoadPortfolio(args[1]);
+
+			Application.Run(frm);
 		}
 	}
 }
