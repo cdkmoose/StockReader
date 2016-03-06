@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -124,9 +125,9 @@ namespace DavinSys.StockReader.UI
 			FileStream fStream = null;
 			try
 			{
-                string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 				XmlSerializer configInput = new XmlSerializer(typeof(StockReaderConfig));
-
+                
 				fStream = new FileStream(path + "\\StockReaderConfig.xml", FileMode.Open,
 					FileAccess.Read, FileShare.None);
 
@@ -547,6 +548,8 @@ namespace DavinSys.StockReader.UI
             portfolio = new PortFolio();
 
             TickerListForm frm = new TickerListForm();
+            frm.TickerList = new List<Holding>();
+
             DialogResult res = frm.ShowDialog();
 
             if (res == System.Windows.Forms.DialogResult.OK)
