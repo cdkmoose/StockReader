@@ -196,38 +196,33 @@ namespace DavinSys.StockReader.UI
             bool result;
 
 			ProcessTickers();
-            result = TickerTools.ValidateTicker("RADS");
+            result = AVReader.ValidateTicker("RADS");
 		}
 
 		private void ProcessTickers()
 		{
-			string[] response;
-            string request;
-			string tickers;
+			List<string> tickers;
 
 			try
 			{
-				tickers = TickerListString();
+				tickers = TickerList();
 
-				if (tickers.Length == 0)
+				if (tickers.Count == 0)
 				{
 					return;
 				}
 
-                request = TickerTools.URLBase + TickerTools.URLTicker + tickers + "&" + TickerTools.URLDataArgs;
-
-                response = NetComm.GetDataResponse(request);
-
-				foreach (string data in response)
+				foreach (string tkr in tickers)
 				{
-					if (data != null && data.Trim().Length > 0)
-					{
-                        String[] values = data.Split(new Char[] { ',' });
+                    PriceData d = AVReader.GetLatestPriceData(tkr);
 
-                        TickerData tick = FindTickerDataItem(values[0].Trim(delim));
-                        if (tick != null)
-                            tick.SetDynamicData(values);
-                    }
+                    if (d == null)
+                        continue;
+
+                    TickerData tick = FindTickerDataItem(tkr);
+                    if (tick != null)
+                        tick.SetDynamicData(d);
+                    
 				}
 
 				stockDataGridView.DataSource = dataList;
@@ -268,24 +263,36 @@ namespace DavinSys.StockReader.UI
             return null;
         }
 
-		private string TickerListString()
-		{
-			StringBuilder sb = new StringBuilder();
-			string result = "";
+        private string TickerListString()
+        {
+            StringBuilder sb = new StringBuilder();
+            string result = "";
 
-			foreach (Holding hld in portfolio.Positions)
-			{
-				sb.Append(hld.TickerText + ",");
-			}
+            foreach (Holding hld in portfolio.Positions)
+            {
+                sb.Append(hld.TickerText + ",");
+            }
 
-			if (sb.Length > 0)
-			{
-				result = sb.ToString();
-				result = result.Substring(0, result.Length - 1);
-			}
+            if (sb.Length > 0)
+            {
+                result = sb.ToString();
+                result = result.Substring(0, result.Length - 1);
+            }
 
-			return result;
-		}
+            return result;
+        }
+
+        private List<string> TickerList()
+        {
+            List<string> allTickers = new List<string>();
+
+            foreach (Holding hld in portfolio.Positions)
+            {
+                allTickers.Add(hld.TickerText);
+            }
+
+            return allTickers;
+        }
 
         private void StockReaderForm_Resize(object sender, EventArgs e)
         {
@@ -344,6 +351,9 @@ namespace DavinSys.StockReader.UI
         private void SetCellForeground(DataGridViewCellFormattingEventArgs e)
         {
             double val;
+
+            if (e.Value == null)
+                return;
 
             if (double.TryParse(e.Value.ToString(), out val) == true)
             {
@@ -556,6 +566,11 @@ namespace DavinSys.StockReader.UI
             {
                 portfolio.Positions = frm.TickerList.ToArray();
             }
+            foreach (Holding hld in portfolio.Positions)
+            {
+                dataList.Add(new TickerData(hld));
+            }
+            ProcessTickers();
         }
 
         private void savePortfolioToolStripMenuItem_Click(object sender, EventArgs e)

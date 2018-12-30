@@ -82,6 +82,14 @@ namespace DavinSys.StockReader.Data
 
 		}
 
+        public void SetDynamicData(PriceData d)
+        {
+            low = d.Low.ToString();
+            high = d.High.ToString();
+            open = d.Open.ToString();
+            price = d.Close.ToString();
+            volume = d.Volume.ToString();
+        }
 		#region Properties
 		public string TickerSymbol
 		{

@@ -65,7 +65,7 @@ namespace DavinSys.StockReader.UI
 
 		private void btnAddTicker_Click(object sender, EventArgs e)
 		{
-			if (TickerTools.ValidateTicker(txtTicker.Text) == true)
+			if (AVReader.ValidateTicker(txtTicker.Text) == true)
 			{
                 positions.Add(new Holding(txtTicker.Text.ToUpper()));
 				lbTickers.Items.Add(txtTicker.Text.ToUpper());
