@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StockReaderConfig>
+  <ConfigData>
+    <Timer interval="60"></Timer>
+  </ConfigData>
+  <ColumnList>
+    <ColumnDef>
+      <ColName>open</ColName>
+      <BindingColumn>Open</BindingColumn>
+      <ColHeading>Opening Price</ColHeading>
+      <ColFormat>C</ColFormat>
+      <Selected>true</Selected>
+    </ColumnDef>
+    <ColumnDef>
+      <ColName>close</ColName>
+      <BindingColumn>Close</BindingColumn>
+      <ColHeading>Closing Price</ColHeading>
+      <ColFormat>C</ColFormat>
+      <Selected>true</Selected>
+    </ColumnDef>
+    <ColumnDef>
+      <ColName>high</ColName>
+      <BindingColumn>High</BindingColumn>
+      <ColHeading>High Price</ColHeading>
+      <ColFormat>C</ColFormat>
+      <Selected>true</Selected>
+    </ColumnDef>
+    <ColumnDef>
+      <ColName>low</ColName>
+      <BindingColumn>Low</BindingColumn>
+      <ColHeading>Low Price</ColHeading>
+      <ColFormat>C</ColFormat>
+      <Selected>true</Selected>
+    </ColumnDef>
+        <ColumnDef>
+      <ColName>volume</ColName>
+      <BindingColumn>Volume</BindingColumn>
+      <ColHeading>Volume</ColHeading>
+      <ColFormat>N</ColFormat>
+      <Selected>true</Selected>
+    </ColumnDef>
+
+  </ColumnList>
+</StockReaderConfig>
