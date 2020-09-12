@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockReader", "StockReader\StockReader.csproj", "{1D3418C2-0717-4D09-B92E-AD25E1045A3E}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{41531247-BEA8-444C-81FF-E020F7F90790}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{8774C581-1FE5-4107-8955-CCDA659AC43C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVTester", "AVTester\AVTester.csproj", "{178CCD21-0E31-4147-ABD0-73369BC07D00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +33,11 @@ Global
 		{8774C581-1FE5-4107-8955-CCDA659AC43C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8774C581-1FE5-4107-8955-CCDA659AC43C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8774C581-1FE5-4107-8955-CCDA659AC43C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{178CCD21-0E31-4147-ABD0-73369BC07D00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{178CCD21-0E31-4147-ABD0-73369BC07D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{178CCD21-0E31-4147-ABD0-73369BC07D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{178CCD21-0E31-4147-ABD0-73369BC07D00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B0B79E9-93E1-403A-94E4-E4F41FF6699B}
 	EndGlobalSection
 EndGlobal

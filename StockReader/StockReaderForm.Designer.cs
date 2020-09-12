@@ -53,10 +53,13 @@ namespace DavinSys.StockReader.UI
             this.notifyContextMennu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tickerTimer = new System.Windows.Forms.Timer(this.components);
+            this.showDetailsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.priceChartMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stockDataGridView)).BeginInit();
+            this.notifyContextMennu.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -216,6 +219,7 @@ namespace DavinSys.StockReader.UI
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.stockDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.stockDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.stockDataGridView.ContextMenuStrip = this.notifyContextMennu;
             this.stockDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.stockDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.stockDataGridView.Location = new System.Drawing.Point(0, 49);
@@ -231,8 +235,11 @@ namespace DavinSys.StockReader.UI
             // 
             // notifyContextMennu
             // 
+            this.notifyContextMennu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showDetailsMenuItem,
+            this.priceChartMenuItem});
             this.notifyContextMennu.Name = "notifyContextMennu";
-            this.notifyContextMennu.Size = new System.Drawing.Size(61, 4);
+            this.notifyContextMennu.Size = new System.Drawing.Size(142, 48);
             // 
             // notifyIcon1
             // 
@@ -245,6 +252,20 @@ namespace DavinSys.StockReader.UI
             // 
             this.tickerTimer.Interval = 5000;
             this.tickerTimer.Tick += new System.EventHandler(this.tickerTimer_Tick);
+            // 
+            // showDetailsMenuItem
+            // 
+            this.showDetailsMenuItem.Name = "showDetailsMenuItem";
+            this.showDetailsMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.showDetailsMenuItem.Text = "Show Details";
+            this.showDetailsMenuItem.Click += new System.EventHandler(this.showDetailsMenuItem_Click);
+            // 
+            // priceChartMenuItem
+            // 
+            this.priceChartMenuItem.Name = "priceChartMenuItem";
+            this.priceChartMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.priceChartMenuItem.Text = "Price Chart";
+            this.priceChartMenuItem.Click += new System.EventHandler(this.priceChartMenuItem_Click);
             // 
             // StockReaderForm
             // 
@@ -268,6 +289,7 @@ namespace DavinSys.StockReader.UI
             this.mainStatusStrip.ResumeLayout(false);
             this.mainStatusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stockDataGridView)).EndInit();
+            this.notifyContextMennu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,6 +318,8 @@ namespace DavinSys.StockReader.UI
         private System.Windows.Forms.ToolStripStatusLabel navStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel portProfitLabel;
         private System.Windows.Forms.ToolStripStatusLabel invProfitLabel;
-	}
+        private System.Windows.Forms.ToolStripMenuItem showDetailsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem priceChartMenuItem;
+    }
 }
 

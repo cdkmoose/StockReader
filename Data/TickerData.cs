@@ -33,6 +33,7 @@ namespace DavinSys.StockReader.Data
 		string low;
 		string high;
 		string exDividend;
+		string previous;
 
         public TickerData()
         {
@@ -87,8 +88,10 @@ namespace DavinSys.StockReader.Data
             low = d.Low.ToString();
             high = d.High.ToString();
             open = d.Open.ToString();
-            price = d.Close.ToString();
+            price = d.Current.ToString();
             volume = d.Volume.ToString();
+			previous = d.Close.ToString();
+			change = (d.Current - d.Close).ToString();
         }
 		#region Properties
 		public string TickerSymbol
@@ -123,7 +126,7 @@ namespace DavinSys.StockReader.Data
                 double price;
                 double pct;
 
-                if (double.TryParse(change, out delta) == true && double.TryParse(open, out price) == true)
+                if (double.TryParse(change, out delta) == true && double.TryParse(previous, out price) == true)
                 {
                     pct = (delta / price);
 

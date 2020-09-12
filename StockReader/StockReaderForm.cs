@@ -26,6 +26,7 @@ namespace DavinSys.StockReader.UI
 		private SortOrder sortOrder;
         private PortFolio portfolio;
         private string portfolioPath;
+        private FinnHubReader dataReader = new FinnHubReader();
 
 		public StockReaderForm()
 		{
@@ -196,7 +197,7 @@ namespace DavinSys.StockReader.UI
             bool result;
 
 			ProcessTickers();
-            result = AVReader.ValidateTicker("RADS");
+            result = FinnHubReader.ValidateTicker("GE");
 		}
 
 		private void ProcessTickers()
@@ -205,6 +206,7 @@ namespace DavinSys.StockReader.UI
 
 			try
 			{
+                CandleData c = FinnHubReader.GetCandleData("VZ");
 				tickers = TickerList();
 
 				if (tickers.Count == 0)
@@ -214,7 +216,7 @@ namespace DavinSys.StockReader.UI
 
 				foreach (string tkr in tickers)
 				{
-                    PriceData d = AVReader.GetLatestPriceData(tkr);
+                    PriceData d = FinnHubReader.GetLatestPriceData(tkr);
 
                     if (d == null)
                         continue;
@@ -471,27 +473,7 @@ namespace DavinSys.StockReader.UI
             return false;
         }
 
-		private void stockDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-		{
-			string symbol;
-			TickerData data;
-
-			if (e.RowIndex == -1 || e.ColumnIndex == -1)
-			{
-				return;
-			}
-
-			symbol = stockDataGridView.Rows[e.RowIndex].Cells["Ticker"].Value.ToString();
-
-			data = (TickerData) stockDataGridView.Rows[e.RowIndex].DataBoundItem;
-			TickerDetailForm form = new TickerDetailForm();
-            form.TickerTrans = GetTickerTrans(symbol);
-
-			form.InitializeFieldData(data);
-			form.ShowDialog();
-		}
-
-        private Holding GetTickerTrans(string ticker)
+       private Holding GetTickerTrans(string ticker)
         {
             for (int i = 0; i < portfolio.Positions.Length; i++)
                 if (portfolio.Positions[i].TickerText == ticker)
@@ -602,5 +584,60 @@ namespace DavinSys.StockReader.UI
                 ProcessTickers();
         }
 
-	}
+        private void stockDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string symbol;
+            TickerData data;
+
+            if (e.RowIndex == -1 || e.ColumnIndex == -1)
+            {
+                return;
+            }
+
+            symbol = stockDataGridView.Rows[e.RowIndex].Cells["Ticker"].Value.ToString();
+
+
+            data = (TickerData)stockDataGridView.Rows[e.RowIndex].DataBoundItem;
+            TickerDetailForm form = new TickerDetailForm();
+            form.TickerTrans = GetTickerTrans(symbol);
+
+            form.InitializeFieldData(data);
+            form.ShowDialog();
+        }
+
+
+        private void priceChartMenuItem_Click(object sender, EventArgs e)
+        {
+            string symbol;
+
+            if (stockDataGridView.SelectedRows.Count != 1)
+                return;
+
+            symbol = stockDataGridView.SelectedRows[0].Cells["Ticker"].Value.ToString();
+
+            PriceChartForm frm = new PriceChartForm(symbol);
+            frm.ShowDialog();
+
+        }
+
+        private void showDetailsMenuItem_Click(object sender, EventArgs e)
+        {
+            string symbol;
+            TickerData data;
+
+            if (stockDataGridView.SelectedRows.Count != 1)
+                return;
+
+            symbol = stockDataGridView.SelectedRows[0].Cells["Ticker"].Value.ToString();
+
+            data = (TickerData)stockDataGridView.SelectedRows[0].DataBoundItem;
+            TickerDetailForm form = new TickerDetailForm();
+            form.TickerTrans = GetTickerTrans(symbol);
+
+            form.InitializeFieldData(data);
+            form.ShowDialog();
+
+
+        }
+    }
 }

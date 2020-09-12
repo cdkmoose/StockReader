@@ -7,10 +7,12 @@ namespace DavinSys.StockReader.Data
 {
     public class PriceData
     {
-        public float High { get; set; }
-        public float Low { get; set; }
-        public float Open { get; set; }
-        public float Close { get; set; }
-        public long Volume { get; set; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
+        public decimal Open { get; set; }
+        public decimal Close { get; set; }
+        public decimal Volume { get; set; }
+        public decimal Current { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }

@@ -13,7 +13,6 @@ namespace DavinSys.StockReader.UI
     public partial class TickerListForm : Form
     {
         private List<Holding> positions;
-
         public TickerListForm()
         {
             InitializeComponent();
@@ -65,7 +64,7 @@ namespace DavinSys.StockReader.UI
 
 		private void btnAddTicker_Click(object sender, EventArgs e)
 		{
-			if (AVReader.ValidateTicker(txtTicker.Text) == true)
+			if (FinnHubReader.ValidateTicker(txtTicker.Text) == true)
 			{
                 positions.Add(new Holding(txtTicker.Text.ToUpper()));
 				lbTickers.Items.Add(txtTicker.Text.ToUpper());
